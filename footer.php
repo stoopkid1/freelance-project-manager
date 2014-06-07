@@ -2,7 +2,7 @@
          <div class="container">
          
             <div class="copy text-center">
-               Copyright 2014 <a href='#'>Website</a>
+               Copyright &copy; 2014 <a href='http://www.mdloring.com/' target='_blank'>Michael Loring</a>
             </div>
             
          </div>

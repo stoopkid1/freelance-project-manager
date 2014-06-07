@@ -1,3 +1,8 @@
+<?php session_start();
+	if(isset($_SESSION['fpm_username'])) {
+		header("Location: index.php");
+	} 
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,6 +12,8 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/fpm.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,900' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,7 +29,9 @@
 	           <div class="col-md-12">
 	              <!-- Logo -->
 	              <div class="logo">
-	                 <h1><a href="index.php">Freelance Project Manager</a></h1>
+	                 <h1><a href="index.php">Freelance Project Manager <sup>beta 1.0</sup></a> 
+	                 	 <a href="http://www.mdloring.com" target="_blank"><span class="built-by">built by michael loring</span></a>
+	                 </h1>
 	              </div>
 	           </div>
 	        </div>
@@ -35,11 +44,16 @@
 				<div class="login-wrapper">
 			        <div class="box">
 			            <div class="content-wrap">
-			                <input class="form-control" type="text" placeholder="E-mail address">
-			                <input class="form-control" type="password" placeholder="Password">
+			              <form id="fpmLogin" name="fpmLogin" method="POST">
+			                <input class="form-control" type="text" id="login-username" placeholder="E-mail address">
+			                <input class="form-control" type="password" id="login-password" placeholder="Password">
+			                <div class="login_success">
+			               <span class="login_success_text"></span>
+			              </div>
 			                <div class="action">
-			                    <a class="btn btn-primary signup" href="index.html">Login</a>
-			                </div>                
+			                    <button type="submit" class="btn btn-primary signup">Login</button>
+			                </div>    
+			              </form>
 			            </div>
 			        </div>
 
@@ -51,13 +65,13 @@
 			</div>
 		</div>
 	</div>
-
-
+	
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/fpm.js"></script>
   </body>
 </html>

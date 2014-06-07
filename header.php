@@ -10,8 +10,9 @@
 	
 	if(isset($_SESSION['fpm_username'])) {
 		$fpm_username = $_SESSION['fpm_username'];
+		 $fpm_username_details = $fpm->getUser($fpm_username);
 	} else {
-		$fpm_username = 'mloring';
+		header("Location: login.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -23,6 +24,8 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/fpm.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,900' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,10 +41,10 @@
 	           <div class="col-md-5">
 	              <!-- Logo -->
 	              <div class="logo">
-	                 <h1><a href="index.html">Freelance Project Manager</a></h1>
+	                 <h1><a href="index.php">Freelance Project Manager</a></h1>
 	              </div>
 	           </div>
-	           <div class="col-md-5">
+	           <div class="col-md-3">
 	              <div class="row">
 	                <div class="col-lg-12">
 	                  <div class="input-group form">
@@ -53,21 +56,24 @@
 	                </div>
 	              </div>
 	           </div>
-	           <div class="col-md-2">
+	           <div class="col-md-4">
 	              <div class="navbar navbar-inverse" role="banner">
-	                  <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+	                  <nav class="navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 	                    <ul class="nav navbar-nav">
 	                      <li class="dropdown">
-	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php print $fpm_username; ?> <b class="caret"></b></a>
 	                        <ul class="dropdown-menu animated fadeInUp">
-	                          <li><a href="profile.html">Profile</a></li>
-	                          <li><a href="login.html">Logout</a></li>
+	                          <li><a href="profile.php">Profile</a></li>
+	                          <li><a href="logout.php">Logout</a></li>
 	                        </ul>
 	                      </li>
+	                      <li class="show_date"><?php print date('F d, Y', strtotime('now')); ?></li>
 	                    </ul>
 	                  </nav>
 	              </div>
 	           </div>
 	        </div>
 	     </div>
-	</div>
+	</div>
+	<div class="page-content">
+    	<div class="row">

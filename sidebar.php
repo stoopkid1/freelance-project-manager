@@ -4,7 +4,7 @@
 		  	<div class="sidebar content-box" style="display: block;">
                 <ul class="nav">
                     <!-- Main menu -->
-                    <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                    <li class="current"><a href="index.php"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
                     <li><a href="view-clients.php"><i class="glyphicon glyphicon-record"></i> Clients</a></li>
                     <li><a href="view-projects.php"><i class="glyphicon glyphicon-fire"></i> Projects</a></li>
                     <li class="submenu">

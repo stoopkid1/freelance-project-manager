@@ -1,10 +1,9 @@
 <?php session_start();
 include('lib/class.db.php');
 include('lib/class.fpm.php');
-include('lib/forum.class.php');
 
 $fpm = new fpm();
-$fpm_username = $_SESSION['fpm_username'];
+$fpm_username = trim($_SESSION['fpm_username']);
 
 	if(isset($_POST['form'])) {
 		$form = $_POST['form'];

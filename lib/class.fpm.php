@@ -1,9 +1,9 @@
 <?php
-/************************************************************************************************************* 
- * Written By		: Michael Loring																		 *
- * Started          : June 04, 2014																			 * 
- * 																											 *		
- *************************************************************************************************************/
+/************************************************************ 
+ * Written By		: Michael Loring						*
+ * Started          : June 04, 2014							* 
+ * 															*		
+ ***********************************************************/
 
 class fpm extends DB_Class {	
 	/*
@@ -24,9 +24,9 @@ class fpm extends DB_Class {
 				print "Account suspended. Please contact the Admins";
 				exit();
 			}
-			$_SESSION['a_username'] = $username;
+			$_SESSION['fpm_username'] = $username;
 			if($role == 'admin') {
-				$_SESSION['a_admin'] = $username;
+				$_SESSION['fpm_admin'] = $username;
 			}
 		
 			print "Logging in...";
@@ -93,6 +93,22 @@ class fpm extends DB_Class {
 		 return $data;
 	}
 	
+	function getUser($username) {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE username = '$username'");
+		 $user = array(
+		 				'id'		=> $data['0']['id'],
+		 				'username'  => $data['0']['username'],
+		 				'email'		=> $data['0']['email'],
+		 				'first_name'=> $data['0']['first_name'],
+		 				'last_name' => $data['0']['last_name'],
+		 				'phone'		=> $data['0']['phone'],
+		 				'company'	=> $data['0']['company'],
+		 				'role'		=> $data['0']['role'],
+		 				'created'	=> $data['0']['created'],
+		 			  );
+		  return $user; 
+	}
+	
 	
 /*
  * CLIENTS / COMPANIES
@@ -109,7 +125,7 @@ class fpm extends DB_Class {
 	}
 	
 	function getClient($id) {
-		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies`");
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies` WHERE id = '$id'");
 		 $client = array(
 		 					'id'	=> $data['0']['id'],
 		 					'company' => $data['0']['company'],
@@ -125,6 +141,12 @@ class fpm extends DB_Class {
 	function getClientProjects($client) {
 		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "projects` WHERE company = '$client'");
 		 return $data;
+	}
+	
+	function getTotalClients() {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies`");
+		 $total = count($data);
+		  return $total;
 	}
 	
 	
@@ -280,8 +302,37 @@ class fpm extends DB_Class {
 		 return $data;
 	}
 	
+	function getTodaysTasks() {
+		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
+									 `" . $this->prefix . "projects`.project AS pname
+							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
+							  WHERE `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
+							  AND `" . $this->prefix . "tasks`.dueDate = CURDATE()
+							  ORDER BY company DESC
+							");
+		 return $data;
+	}
+	
 /*
  * END TASKS
+ */	
+	
+/*
+ * USERS
+ */	
+	
+	function getFreelancers() {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'admin' OR role = 'freelancer'");
+		 return $data;
+	}
+	
+	function getClients() {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'user'");
+		 return $data;
+	}
+	
+/*
+ * END USERS
  */	
 	
 } //end class

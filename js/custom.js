@@ -17,4 +17,12 @@ $(document).ready(function(){
     }
   });
   
+  var role = jQuery('#create-role');
+	role.change(function () {
+	    if (role.val() == 'user') {
+	        $('.user-company').show();
+	    }
+	    else $('.user-company').hide();
+	});
+  
 });

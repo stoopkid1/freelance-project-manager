@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f7f7f7;
   position: relative;
   margin: 0px;
@@ -64,7 +64,7 @@ footer .copy{
 
 .header .logo h1 a{
    color:#fff;
-   font-family: 'Open Sans Condensed', sans-serif;
+   font-family: 'Roboto', sans-serif;
 }
 
 .header .logo h1 a:hover{
@@ -105,7 +105,7 @@ footer .copy{
    font-size:13px !important;
    border-bottom:0px !important;
    margin-top:0px !important;
-   font-weight:bold;
+   font-weight:300;
 }
 
 .header .navbar-nav>.open>a,.header  .navbar-nav>.open>a:hover,.header  .navbar-nav>.open>a:focus {
@@ -292,11 +292,11 @@ footer .copy{
 	padding: 15px 15px;
 	color: #999;
 	display: block;
-   font-weight:bold;
-   background:none;
+    font-weight:bold;
+    background:none;
 	text-decoration: none;
-   border-top:0px;
-   font-weight:bold;
+    border-top:0px;
+    font-weight:100;
 }
 
 .sidebar .nav > li > a > i{
@@ -312,7 +312,7 @@ footer .copy{
 	display: block;
 	text-decoration: none;
    border-top:0px;
-   font-weight:bold;
+   font-weight:100;
 }
 
 .sidebar .nav > li > ul > li.active > a{
@@ -325,12 +325,13 @@ footer .copy{
    background:#fff;
    color:#555;
    border-bottom:0px;
+   font-weight:300;
 }
 
 .sidebar .nav li a:hover, .sidebar .nav li.current > a {
 	background: #fff;
 	color: #555;
-   border-bottom:0px;
+    border-bottom:0px;
 }
 
 .sidebar .nav li.open > a {
@@ -601,8 +602,9 @@ body {
       padding-bottom:10px;
    }
    .header .navbar .nav > li > a:hover{
-      background:#0fa6bc;
+      background:#EFF0F3;
       border-radius:5px;
+   	  color:#555555 !important;
    }
    .navbar-toggle {
       margin-right:0px !important;
