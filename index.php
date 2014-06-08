@@ -18,6 +18,7 @@
                             <li><a href="view-tasks.php">All</a></li>
                         </ul>
                     </li>
+                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
                     <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
                     <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
@@ -38,11 +39,6 @@
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
 			  					<div class="panel-title">Today's Tasks</div>
-								
-								<div class="panel-options">
-									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-								</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
 				  				<?php $tasks = $fpm->getTodaysTasks(); ?>
@@ -55,9 +51,10 @@
 				  				 <div class="col-md-6">
 				  				 	<div class="progress push-down">
 				  					 <div class="progress-bar" role="progressbar" aria-valuenow="<?php print $task['percent']; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php print $task['percent']; ?>%;">
-				    				  <?php print $task['percent']; ?>%
+				    				  <?php print $task['percent']; ?>%<br/>
 				  					 </div>
 									</div>
+									<a href="view-task.php?id=<?php print $task['id']; ?>" class="btn btn-default btn-block">View Task</a>
 								  </div>
 				  				 </div>	
 				  				 <hr/>
@@ -72,11 +69,6 @@
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
 			  					<div class="panel-title">Reminders</div>
-								
-								<div class="panel-options">
-									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-								</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
 				  				

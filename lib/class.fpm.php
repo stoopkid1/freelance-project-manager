@@ -83,11 +83,6 @@ class fpm extends DB_Class {
 		}
 	}
 	
-	function getCompanies() {
-		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies`");
-		 return $data;
-	}
-	
 	function getUsers() {
 		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users`");
 		 return $data;
@@ -147,6 +142,12 @@ class fpm extends DB_Class {
 		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies`");
 		 $total = count($data);
 		  return $total;
+	}
+	
+	function getClientID($client) {
+		$data = $this->fetch("SELECT id FROM `" . $this->prefix . "companies` WHERE company = '$client'");
+		 $id = $data['0']['id'];
+		  return $id;
 	}
 	
 	
@@ -209,6 +210,17 @@ class fpm extends DB_Class {
 							  ORDER BY `" . $this->prefix . "projects`.company
 							");
 		return $data;
+	}
+	
+	function updateProjectStatus($project, $status) {
+		$this->link->query("UPDATE `" . $this->prefix . "projects` SET status = '$status' WHERE id = '$project'");
+		 print "<strong>Success!</strong> Project status updated";
+	}
+	
+	function updateProjectDescription($project, $description) {
+		$description = $this->link->real_escape_string($description);
+		 $this->link->query("UPDATE `" . $this->prefix . "projects` SET description = '$description' WHERE id = '$project'");
+		  print "<strong>Success!</strong> Project description updated";
 	}
 	
 /*
@@ -313,6 +325,99 @@ class fpm extends DB_Class {
 		 return $data;
 	}
 	
+	function createTask($project, $task, $description, $priority, $assignee, $due_date, $company) {
+		$description = $this->link->real_escape_string($description);
+		$task		 = $this->link->real_escape_string($task);
+		 $this->link->query("INSERT INTO `" . $this->prefix . "tasks` 
+		 					 SET project = '$project', task = '$task', description = '$description', priority = '$priority',
+		 					 assignee = '$assignee', dueDate = '$due_date', company = '$company'
+		 					");
+		 	print "<strong>Success!</strong> Task has been created";
+	}
+	
+	function getTask($task_id) {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "tasks` WHERE id = '$task_id'");
+		 $task = array(
+		 				'id'		  => $data['0']['id'],
+		 				'task'		  => $data['0']['task'],
+		 				'description' => $data['0']['description'],
+		 				'status'	  => $data['0']['status'],
+		 				'project'	  => $data['0']['project'],
+		 				'priority'	  => $data['0']['priority'],
+		 				'assignee'	  => $data['0']['assignee'],
+		 				'dueDate'	  => $data['0']['dueDate'],
+		 				'company'	  => $data['0']['company'],
+		 				'created'	  => date('F d, Y h:ia', strtotime($data['0']['created'])),
+		 				'notes'		  => $data['0']['notes'],
+		 				'percent'	  => $data['0']['percent'],
+		 				'lastUpdate'  => $data['0']['lastUpdated'],
+		 				'completed'   => $data['0']['completeDate']
+		 			  );
+		 	return $task;
+	}
+	
+	function updateTaskStatus($task_id, $status) {
+		//if the task is being marked as completed, set the completion date, percent to 100 and close the task
+		if($status == 0) {
+			$this->link->query("UPDATE `" . $this->prefix . "tasks` 
+								SET status = '$status', lastUpdate = NOW(), completeDate = NOW(), percent = '100'
+								WHERE id = '$task_id'
+							   ");
+			 print "<strong>Success!</strong> Task has been marked as completed and closed";
+		} else {
+			$this->link->query("UPDATE `" . $this->prefix . "tasks` 
+								SET status = '$status', lastUpdate = NOW()
+								WHERE id = '$task_id'
+							   ");
+		 	 print "<strong>Success!</strong> Task has been re-opened";
+		}
+	}
+	
+	function updateTaskDescription($task_id, $description) {
+		$this->link->query("UPDATE `" . $this->prefix . "tasks` 
+							SET description = '$description', lastUpdate = NOW()
+							WHERE id = '$task_id'
+						   ");
+		 print "<strong>Success!</strong> Task description updated";
+	}
+	
+	function updateTaskProgress($task_id, $progress) {
+		if($progress < 0) {
+		 print "<strong>Error</strong> Progress cannot be negative";	
+		} else {
+		$this->link->query("UPDATE `" . $this->prefix . "tasks` 
+							SET percent = '$progress', lastUpdate = NOW()
+							WHERE id = '$task_id'
+						   ");
+		 print "<strong>Success!</strong> Task progress updated";
+		}
+	}
+	
+	function getTaskNotes($task_id) {
+		$data = $this->fetch("SELECT notes FROM `" . $this->prefix . "tasks` WHERE id = '$task_id'");
+		 $notes = $data['0']['notes'];
+		  return $notes;
+	}
+	
+	function addTaskNote($task_id, $note, $fpm_username) {
+		$today = date('F d, Y h:ia', strtotime('now'));
+		//add the username and date to the note
+		$note = "<strong>" . $fpm_username . "</strong> <em>" . $today . "</em> " . $note;
+		//sanitize the note string before the query
+		$note = $this->link->real_escape_string($note);
+		//grab the old notes
+		 $old_notes = fpm::getTaskNotes($task_id);
+		 //sanitize the old notes
+		 $old_notes = $this->link->real_escape_string($old_notes);
+		  //combine the 2 note strings
+		  $new_notes = $note . "" . $old_notes;
+		   //run the query
+		   $this->link->query("UPDATE `" . $this->prefix . "tasks` 
+		   					   SET notes = '$new_notes', lastUpdate = NOW()
+		   					   WHERE id = '$task_id'");
+		    print "<strong>Success!</strong> Task notes have been updated";
+	}
+	
 /*
  * END TASKS
  */	
@@ -329,6 +434,21 @@ class fpm extends DB_Class {
 	function getClients() {
 		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'user'");
 		 return $data;
+	}
+	
+	function getCompanies() {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "companies`");
+		 return $data;
+	}
+	
+	function addClient($company, $owner, $website, $email) {
+		$company = $this->link->real_escape_string($company);
+		$website = $this->link->real_escape_string($website);
+		
+		 $this->link->query("INSERT INTO `" . $this->prefix . "companies`
+		 					 SET company = '$company', owner = '$owner', website = '$website', email = '$email'
+		 					");
+		 	print "<strong>Success!</strong> Client has been added";
 	}
 	
 /*

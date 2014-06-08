@@ -18,6 +18,7 @@
                             <li><a href="view-tasks.php">All</a></li>
                         </ul>
                     </li>
+                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
                     <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
                     <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
@@ -40,7 +41,7 @@
 			  					<div class="panel-title">Current Clients</div>
 								
 								<div class="panel-options">
-									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-edit"></i></a>
+									<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-client"><i class="glyphicon glyphicon-edit"></i> Add Client</button>
 								</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
@@ -110,5 +111,51 @@
 		  	
 		  </div>	
 		</div>
+		
+<div class="modal fade" id="add-client">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h4 class="modal-title">Add Client</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="company-create" name="company-create" method="POST" role="form">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-3 control-label">Company</label>
+		    <div class="col-sm-9">
+		      <input class="form-control" id="company-company" placeholder="Company Name" type="text">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-3 control-label">Owner</label>
+		    <div class="col-sm-9">
+		      <input class="form-control" id="company-owner" placeholder="Company Owner" type="text">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-3 control-label">Website</label>
+		    <div class="col-sm-9">
+		      <input class="form-control" id="company-website" placeholder="ex: mdloring.com" type="text">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-3 control-label">E-Mail</label>
+		    <div class="col-sm-9">
+		      <input class="form-control" id="company-email" placeholder="E-Mail Address" type="text">
+		    </div>
+		  </div>
+		  <div class="success">
+      		 <span class="success_text"></span>
+      	  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Add Client</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+     </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->		
 
 <?php include('footer.php'); ?>

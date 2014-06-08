@@ -27,6 +27,7 @@ sup {
 
 .login_success_text, .register_success_text, .success_text {
 	color:#F0F1F3;
+	padding:10px;
 }
 
 .built-by {

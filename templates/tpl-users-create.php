@@ -37,12 +37,18 @@
 		  <div class="form-group user-company" style="display:none;">
 		    <label for="inputEmail3" class="col-sm-3 control-label">Company</label>
 		    <div class="col-sm-9">
-		      <input class="form-control" id="create-company" placeholder="Company Name" type="text">
+		      <select class="form-control" id="create-company">
+		      		<option value=""></option>
+		       <?php $companies = $fpm->getCompanies(); ?>
+		        <?php foreach($companies as $company) { ?>
+		        	<option value="<?php print $company['id']; ?>"><?php print $company['company']; ?></option>
+		        <?php } ?>
+		      </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-primary">Update Details</button>
+		      <button type="submit" class="btn btn-primary">Create User</button>
 		    </div>
 		  </div>
   		</form>

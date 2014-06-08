@@ -67,4 +67,68 @@
 	
 /*
  * END LOGIN & REGISTRATION FUNCTIONALITY
- */
+ */
+	
+
+//add client
+	$('#add-client').submit(function(e) {
+		var company		= $("#company-company").val();
+			owner	    = $("#company-owner").val();
+			website	    = $("#company-website").val();
+			email	    = $("#company-email").val();
+		 e.preventDefault();
+	 $.ajax({
+	     type: "POST",
+	     url: 'submit.php',
+	     data: { form: 'add-client', company: '' + company + '', owner: '' + owner + '', website: '' + website + '', email: '' + email + '' }
+	   }).success(function( msg ) {
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
+		      setTimeout(function(){location.reload()},3000);
+	  });
+	});
+	
+//add task
+	$('#task-create').submit(function(e) {
+		var project		= $("#task-project").val();
+			task	    = $("#task-task").val();
+			description	= $("#task-description").val();
+			assignee	= $("#task-assignee").val();
+			priority	= $("#task-priority").val();
+			due_date	= $("#task-due-date").val();
+			company		= $("#task-company").val();
+			
+		 e.preventDefault();
+	 $.ajax({
+	     type: "POST",
+	     url: 'submit.php',
+	     data: { form: 'task-create', project: '' + project + '', task: '' + task + '', description: '' + description + '', assignee: '' + assignee + '', priority: '' + priority + '', due_date: '' + due_date + '', company: '' + company + '' }
+	   }).success(function( msg ) {
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
+		      setTimeout(function(){location.reload()},3000);
+	  });
+	});
+	
+//add task note
+	$('#task-add-note').submit(function(e) {
+		var task	    = $("#task-task").val();
+			note		= tinyMCE.get('task-note').getContent();
+
+		 e.preventDefault();
+	 $.ajax({
+	     type: "POST",
+	     url: 'submit.php',
+	     data: { form: 'task-add-note', task: '' + task + '', note: '' + note + '' }
+	   }).success(function( msg ) {
+		      $('.success').css("display", "");
+		      $(".success").fadeIn(1000, "linear");
+		      $('.success_text').fadeIn("slow");
+		      $('.success_text').html(msg);
+		      setTimeout(function(){location.reload()},3000);
+	  });
+	});

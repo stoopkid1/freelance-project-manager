@@ -18,6 +18,7 @@
                             <li><a href="view-tasks.php">All</a></li>
                         </ul>
                     </li>
+                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
                     <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
                     <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>

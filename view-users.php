@@ -18,6 +18,7 @@
                             <li><a href="view-tasks.php">All</a></li>
                         </ul>
                     </li>
+                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
                     <li class="current"><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
                     <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
@@ -46,7 +47,7 @@
 		  			</div>
 		  		</div>
 
-		  		<div class="col-md-4">
+		  		<div class="col-md-5">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
@@ -59,7 +60,7 @@
 		  			</div>
 		  		</div>
 		  		
-		  		<div class="col-md-4">
+		  		<div class="col-md-3">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">

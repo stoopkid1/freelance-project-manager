@@ -25,6 +25,9 @@
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/fpm.css" rel="stylesheet">
+    <!-- jQuery UI -->
+    <link href="css/fpm-ui/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+    <!-- Google Font - Roboto -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,900' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
