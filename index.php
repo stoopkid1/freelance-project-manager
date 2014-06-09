@@ -1,86 +1,77 @@
-<?php include('header.php'); ?>
-<!-- Sidebar -->
-		  <div class="col-md-2">
-		  	<div class="sidebar content-box" style="display: block;">
-                <ul class="nav">
-                    <!-- Main menu -->
-                    <li class="current"><a href="index.php"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                    <li><a href="view-clients.php"><i class="glyphicon glyphicon-record"></i> Clients</a></li>
-                    <li><a href="view-projects.php"><i class="glyphicon glyphicon-fire"></i> Projects</a></li>
-                    <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-tasks"></i> Tasks
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li><a href="view-tasks-user.php">My Tasks</a></li>
-                            <li><a href="view-tasks.php">All</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
-                    <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
-                    <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
-                    <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
-                </ul>
-             </div>
-		  </div>
-<!-- /Sidebar -->
-
-<div class="col-md-10">
-			<div class="row">
-			 <div class="col-md-12">
-			   <h2>Welcome, <span class="welcome"><?php print $fpm_username_details['first_name'] . " " . $fpm_username_details['last_name']; ?>!</span></h2>
-			 </div>
-			</div>
-		  	<div class="row">
-		  		<div class="col-md-6">
-		  			<div class="row">
-		  				<div class="col-md-12">
-		  					<div class="content-box-header">
-			  					<div class="panel-title">Today's Tasks</div>
-				  			</div>
-				  			<div class="content-box-large box-with-header">
-				  				<?php $tasks = $fpm->getTodaysTasks(); ?>
-				  				 <?php foreach($tasks as $task) { //print_r($task); ?>
-				  				<div class="row">
-				  				 <div class="col-md-6">	 	
-				  				 	<h4 class="thin">[<span class="project_name"><?php print $task['pname']; ?></span>] <?php print $task['task']; ?></h4>
-				  				 	<p class="assignee">assigned to <span class="assignee"><?php print $task['assignee']; ?></span></p>
-				  				 </div>
-				  				 <div class="col-md-6">
-				  				 	<div class="progress push-down">
-				  					 <div class="progress-bar" role="progressbar" aria-valuenow="<?php print $task['percent']; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php print $task['percent']; ?>%;">
-				    				  <?php print $task['percent']; ?>%<br/>
-				  					 </div>
-									</div>
-									<a href="view-task.php?id=<?php print $task['id']; ?>" class="btn btn-default btn-block">View Task</a>
-								  </div>
-				  				 </div>	
-				  				 <hr/>
-				  				 <?php } ?>
-							</div>
-		  				</div>
-		  			</div>
-		  		</div>
-
-		  		<div class="col-md-6">
-		  			<div class="row">
-		  				<div class="col-md-12">
-		  					<div class="content-box-header">
-			  					<div class="panel-title">Reminders</div>
-				  			</div>
-				  			<div class="content-box-large box-with-header">
-				  				
-					  			Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
-								<br /><br />
-							</div>
-		  				</div>
-		  			</div>
-		  		</div>
-		  	</div>
-
-		  </div>	
-		</div>
-
-<?php include('footer.php'); ?>
+<?php session_start();
+	if(isset($_SESSION['fpm_username'])) {
+		header("Location: index.php");
+	} 
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Freelance Project Manager - Organize Tasks, Complete Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- styles -->
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/fpm.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,900' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="login-bg">
+  	<div class="header">
+	     <div class="container">
+	        <div class="row">
+	           <div class="col-md-12">
+	              <!-- Logo -->
+	              <div class="logo">
+	                 <h1><a href="index.php">Freelance Project Manager <sup>beta 1.0</sup></a> 
+	                 	 <a href="http://www.mdloring.com" target="_blank"><span class="built-by">built by michael loring</span></a>
+	                 </h1>
+	              </div>
+	           </div>
+	        </div>
+	     </div>
+	</div>
+
+	<div class="page-content container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-wrapper">
+			        <div class="box">
+			            <div class="content-wrap">
+			              <form id="fpmLogin" name="fpmLogin" method="POST">
+			                <input class="form-control" type="text" id="login-username" placeholder="E-mail address">
+			                <input class="form-control" type="password" id="login-password" placeholder="Password">
+			                <div class="login_success">
+			               <span class="login_success_text"></span>
+			              </div>
+			                <div class="action">
+			                    <button type="submit" class="btn btn-primary signup">Login</button>
+			                </div>    
+			              </form>
+			            </div>
+			        </div>
+
+			        <div class="already">
+			            <p>Don't have an account yet?</p>
+			            <a href="signup.php">Sign Up</a>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="developer/js/custom.js"></script>
+    <script src="developer/js/fpm.js"></script>
+  </body>
+</html>
