@@ -9,9 +9,10 @@
               <thead>
                 <tr>
                   <th>Project</th>
-                  <th>Assignee</th>
+                  <th>Task</th>
                   <th>Created</th>
                   <th>Completion %</th>
+                  <th>Due Date</th>
                   <th></th>
                 </tr>
               </thead>
@@ -19,7 +20,7 @@
                  <?php foreach($all_tasks as $task) { ?>
                   <tr>
                    <td><em><a href="view-tasks.php?project=<?php print $task['project']; ?>"><?php print $task['pname']; ?></a></em></td>
-                   <td <?php print ($task['assignee'] == $_SESSION['fpm_user'] ? 'class="text-success"' : ''); ?>><?php print $task['assignee']; ?></td>
+                   <td><?php print $task['task']; ?></td>
                    <td><?php print date('F d, Y', strtotime($task['created'])); ?></td>
                    <td>
                    	<div class="progress">
@@ -27,6 +28,13 @@
     				  <?php print $task['percent']; ?>%
   					 </div>
 					</div>
+				   </td>
+				   <td>
+				   	<?php if(strtotime($task['dueDate']) <= strtotime('now')) { ?>
+				   		<span class="text-danger"><?php print date('F d, Y', strtotime($task['dueDate'])); ?></span>
+				   	<?php } else { ?>
+				   		<span class="text-success"><?php print date('F d, Y', strtotime($task['dueDate'])); ?></span>
+				   	<?php } ?>
 				   </td>
                    <td><a href="view-task.php?id=<?php print $task['id']; ?>" class="btn btn-info btn-xs">View Details</a>
                   </tr>

@@ -12,12 +12,13 @@ class fpm extends DB_Class {
 	
 	//user login
 	function login($username, $password) {
-		$saltData = $this->fetch("SELECT salt, hash, role, status FROM `" . $this->prefix . "users` WHERE username = '$username'");
+		$saltData = $this->fetch("SELECT salt, hash, role, status, company FROM `" . $this->prefix . "users` WHERE username = '$username'");
 		$salt  	  = $saltData['0']['salt'];
 		$hash  	  = $saltData['0']['hash'];
 		$guild_id = $saltData['0']['guild'];
 		$role  	  = $saltData['0']['role'];
 		$status   = $saltData['0']['status'];
+		$company  = $saltData['0']['company'];
 		$hashCheck = crypt($password, $hash);
 		if($hashCheck === $hash) {
 			if($status == 1) {
@@ -31,6 +32,7 @@ class fpm extends DB_Class {
 			} elseif($role == 'user') {
 				print "Logging into Developer Panel...";
 			} else {
+				$_SESSION['fpm_company'] = $company;
 				print "Logging into Client Panel...";
 			}
 		

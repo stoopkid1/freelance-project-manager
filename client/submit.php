@@ -9,7 +9,7 @@ $fpm_username = trim($_SESSION['fpm_username']);
 		$form = $_POST['form'];
 		 switch($form) {
 /*
- * LOGIN, REGISTRATION & INSTALLATION
+ * LOGIN, REGISTRATION, USER & INSTALLATION
  */		 
 		 	case 'login':
 		 		$username = $_POST['username'];
@@ -31,6 +31,22 @@ $fpm_username = trim($_SESSION['fpm_username']);
 		 		$id 		= $_POST['user_id'];
 		 		$password	= $_POST['password'];
 		 		 $fpm->changePassword($id, $password);
+		 		break;
+		 		
+		 	case 'delete-user':
+		 		$user_id		= $_POST['user'];
+		 		 $fpm->deleteUser($user_id);
+		 		break;
+		 		
+		 	case 'create-account':
+		 		$email			= $_POST['email'];
+		 		$first_name		= $_POST['first_name'];
+		 		$last_name		= $_POST['last_name'];
+		 		$phone			= $_POST['phone'];
+		 		$role			= $_POST['role'];
+		 		$company		= $_POST['company'];
+		 		$password		= $_POST['password'];
+		 		 $fpm->createAccount($email, $first_name, $last_name, $phone, $role, $company, $password);
 		 		break;
 /*
  * END LOGIN, REGISTRATION & INSTALLATION
@@ -77,6 +93,14 @@ $fpm_username = trim($_SESSION['fpm_username']);
 		 		$due_date		= $_POST['due_date'];
 		 		$company		= $_POST['company'];
 		 		 $fpm->createTask($project, $task, $description, $priority, $assignee, $due_date, $company);
+		 		break;
+		 		
+		 	case 'project-add':
+		 		$project 		= $_POST['project'];
+		 		$description 	= $_POST['description'];
+		 		$type			= $_POST['type'];
+		 		$company		= $_POST['company'];
+		 		 $fpm->addProject($project, $description, $type, $company);
 		 		break;
 /*
  * END PROJECTS

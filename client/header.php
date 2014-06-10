@@ -9,10 +9,12 @@
 	}
 	
 	if(isset($_SESSION['fpm_username'])) {
-		$fpm_username = $_SESSION['fpm_username'];
+		$fpm_username 		   = $_SESSION['fpm_username'];
 		 $fpm_username_details = $fpm->getUser($fpm_username);
+		 $fpm_company_id 	   = $_SESSION['fpm_company'];
+		 $fpm_company 		   = $fpm->getCompanyName($fpm_company_id);
 	} else {
-		header("Location: login.php");
+		header("Location: ../index.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -21,12 +23,12 @@
     <title>Freelance Project Manager v1.0 - Organize Tasks, Complete Projects</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/fpm.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/fpm.css" rel="stylesheet">
     <!-- jQuery UI -->
-    <link href="css/fpm-ui/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+    <link href="../css/fpm-ui/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
     <!-- Google Font - Roboto -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,900' rel='stylesheet' type='text/css'>
 

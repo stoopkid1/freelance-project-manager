@@ -34,20 +34,22 @@
 			 </div>
 			</div>
 		  	<div class="row">
+		  	
+		  	<?php if(!isset($_GET['id'])) { ?>
 		  		<div class="col-md-4">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
-			  					<div class="panel-title">Freelancers</div>
+			  					<div class="panel-title">Developers</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
-				  				<?php include('templates/tpl-users-freelancers.php'); ?>
+				  				<?php include('templates/tpl-users-developers.php'); ?>
 							</div>
 		  				</div>
 		  			</div>
 		  		</div>
 
-		  		<div class="col-md-5">
+		  		<div class="col-md-4">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
@@ -60,7 +62,7 @@
 		  			</div>
 		  		</div>
 		  		
-		  		<div class="col-md-3">
+		  		<div class="col-md-4">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
@@ -72,9 +74,35 @@
 		  				</div>
 		  			</div>
 		  		</div>
-		  		
-		  	</div>
 
+		<?php } elseif(isset($_GET['id']) && is_numeric($_GET['id'])) { $user_id = trim($_GET['id']); ?>
+				<div class="col-md-5">
+		  			<div class="row">
+		  				<div class="col-md-12">
+		  					<div class="content-box-header">
+			  					<div class="panel-title">Edit User Profile</div>
+			  					
+			  					<div class="panel-options">
+			  						<input type="hidden" id="delete-user-id" value="<?php print $user_id; ?>" />
+									<button class="btn btn-primary btn-xs" id="delete-user-btn"><i class="glyphicon glyphicon-remove"></i> Delete User</button>
+								</div>
+				  			</div>
+				  			<div class="content-box-large box-with-header">
+								<?php include('templates/tpl-user-edit.php'); ?>
+							</div>
+			  			</div>
+			  		</div>
+			  	</div>
+		<?php } elseif(isset($_GET['id']) && !is_numeric($_GET['id'])) { ?>
+			<div class="col-md-4">
+	  			<div class="row">
+	  				<div class="col-md-12">
+	  					<h3>Error: Invalid User ID</h3>
+	  				</div>
+	  			</div>
+	  		</div>
+		<?php } ?>
+			</div>
 		  </div>	
 		</div>
 

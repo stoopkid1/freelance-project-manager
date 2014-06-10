@@ -5,23 +5,9 @@
                 <ul class="nav">
                     <!-- Main menu -->
                     <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                    <li><a href="view-clients.php"><i class="glyphicon glyphicon-record"></i> Clients</a></li>
-                    <li class="current"><a href="view-projects.php"><i class="glyphicon glyphicon-fire"></i> Projects</a></li>
-                    <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-tasks"></i> Tasks
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li><a href="view-tasks-user.php">My Tasks</a></li>
-                            <li><a href="view-tasks.php">All</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
+                    <li><a href="view-projects.php"><i class="glyphicon glyphicon-fire"></i> Projects</a></li>
+                    <li class="current"><a href="view-tasks.php"><i class="glyphicon glyphicon-tasks"></i> Tasks</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
-                    <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
-                    <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
                 </ul>
              </div>
 		  </div>
@@ -33,8 +19,12 @@
 				if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 					$task = $_GET['id'];
 					 $details = $fpm->getTask($task);
+					 $project = $fpm->getProjectName($details['project']);
 					 $client  = $fpm->getClient($details['company']);
 			 ?>
+			 
+			 <?php if( $details['company'] == $fpm_company_id ) { ?>
+			  
 			 <div class="col-md-12">
 			   <h2><?php print $details['task'] . " Details"; ?></h2>
 			 </div>
@@ -44,7 +34,7 @@
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
-			  					<div class="panel-title">Details</div>
+			  					<div class="panel-title">Task Details</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
 				  			
@@ -56,6 +46,14 @@
 						                <tr>
 						                 <td><strong>Company</strong></td>
 						                 <td><?php print $client['company']; ?></td>
+						                </tr>
+						                <tr>
+						                 <td><strong>Project</strong></td>
+						                 <td>
+						                 	<a href="view-project.php?id=<?php print $details['project']; ?>">
+						                 		<?php print $project; ?>
+						                 	</a>
+						                 </td>
 						                </tr>
 						                <tr>
 						                 <td><strong>Assignee</strong></td>
@@ -83,12 +81,6 @@
 						    				  <?php print $details['percent']; ?>%<br/>
 						  					 </div>
 											</div>
-											<button id="task-edit-progress-btn" type="button" class="btn btn-info btn-xs">Edit Progress</button>
-											<div class="col-md-3">
-												<input disabled type="text" class="form-control" id="task-update-progress" />
-											</div>
-						                 	<button id="task-save-progress-btn" type="button" class="btn btn-primary btn-xs">Save Changes</button>
-						                 	<button id="task-cancel-progress-btn" type="button" class="btn btn-warning btn-xs">Cancel</button>
 						                 </td>
 						                </tr>
 						                <tr>
@@ -118,34 +110,13 @@
 		  				</div>
 		  			</div>
 		  			
-		  			<div class="row">
-		  				<div class="col-md-12">
-		  					<div class="content-box-header">
-			  					<div class="panel-title">Add Reminder</div>
-				  			</div>
-				  			<div class="content-box-large box-with-header">
-				  			<form id="task-add-reminder" class="form-inline" role="form">
-				  			 <input type="hidden" id="task-task" name="task-task" value="<?php print $task; ?>" />
-				  			  <div class="form-group">
-            					<textarea class="tiny_mce" id="task-reminder"></textarea><br/>
-            				  </div>
-            				  <div class="form-group">
-							    <div class="col-sm-12">
-							      <button type="submit" class="btn btn-primary">Add Task Reminder</button>
-							    </div>
-							  </div>
-							 </form>
-							</div>
-		  				</div>
-		  			</div>
-		  			
 		  		</div>
 
 		  		<div class="col-md-6">
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<div class="content-box-header">
-			  					<div class="panel-title">Add Note</div>
+			  					<div class="panel-title">Add Task Note</div>
 				  			</div>
 				  			<div class="content-box-large box-with-header">
 				  			<form id="task-add-note" class="form-inline" role="form">
@@ -172,9 +143,14 @@
 				  				<?php print $details['notes']; ?>
 							</div>
 		  				</div>
+		  				<?php } else { ?>
+				  		 <h3>This task is not under your companies project list</h3>
+				  		<?php } ?>
+		  		
 		  			<?php } else { ?>
 		  				<h3>Sorry, no Client was selected</h3>
 		  			<?php } ?>
+		  		
 		  			</div>
 		  		</div>
 		  	</div>

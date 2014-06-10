@@ -16,7 +16,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <!-- Bootstrap, Custom UI, Freelance Project Manager -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="vendors/tinymce/js/tinymce/tinymce.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/fpm.js"></script>

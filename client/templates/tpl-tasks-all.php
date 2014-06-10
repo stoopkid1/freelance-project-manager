@@ -3,12 +3,13 @@
 </div>
 	<div class="content-box-large box-with-header">
 
-	     <?php $all_tasks = $fpm->getAllActiveTasks(); ?>
+	     <?php $all_tasks = $fpm->getAllActiveTasksByCompany($fpm_company_id); ?>
 	      <div class="table-responsive">
 				<table class="table">
               <thead>
                 <tr>
                   <th>Project</th>
+                  <th>Task</th>
                   <th>Assignee</th>
                   <th>Created</th>
                   <th>Completion %</th>
@@ -19,6 +20,7 @@
                  <?php foreach($all_tasks as $task) { ?>
                   <tr>
                    <td><em><a href="view-tasks.php?project=<?php print $task['project']; ?>"><?php print $task['pname']; ?></a></em></td>
+                   <td><?php print $task['task']; ?></td>
                    <td <?php print ($task['assignee'] == $_SESSION['fpm_user'] ? 'class="text-success"' : ''); ?>><?php print $task['assignee']; ?></td>
                    <td><?php print date('F d, Y', strtotime($task['created'])); ?></td>
                    <td>

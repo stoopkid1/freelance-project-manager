@@ -12,12 +12,13 @@ class fpm extends DB_Class {
 	
 	//user login
 	function login($username, $password) {
-		$saltData = $this->fetch("SELECT salt, hash, role, status FROM `" . $this->prefix . "users` WHERE username = '$username'");
+		$saltData = $this->fetch("SELECT salt, hash, role, status, company FROM `" . $this->prefix . "users` WHERE username = '$username'");
 		$salt  	  = $saltData['0']['salt'];
 		$hash  	  = $saltData['0']['hash'];
 		$guild_id = $saltData['0']['guild'];
 		$role  	  = $saltData['0']['role'];
 		$status   = $saltData['0']['status'];
+		$company  = $saltData['0']['company'];
 		$hashCheck = crypt($password, $hash);
 		if($hashCheck === $hash) {
 			if($status == 1) {
@@ -27,19 +28,22 @@ class fpm extends DB_Class {
 			$_SESSION['fpm_username'] = $username;
 			if($role == 'admin') {
 				$_SESSION['fpm_admin'] = $username;
+				print "Logging into Developer Panel...";
+			} elseif($role == 'user') {
+				print "Logging into Developer Panel...";
+			} else {
+				$_SESSION['fpm_company'] = $company;
+				print "Logging into Client Panel...";
 			}
 		
-			print "Logging in...";
 		} else {
 			print "Incorrect username or password";
 		}
 	}
+	
 	/*
-	 * Create User
-	* strength - [1-10] strength of the salt
-	* salt and hash - each user has a unique salt combined with a hash
-	* the password is not stored
-	*/
+	 * User Registration -- Public Sign-Up
+	 */
 	function register($username, $password, $email) {
 		$strength = '5';
 		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
@@ -56,6 +60,30 @@ class fpm extends DB_Class {
 					hash = '$hash', role = 'user'
 					");
 			print "<strong>Success!</strong> Account has been created. You may now login.";
+		}
+	}
+	
+	/*
+	 * Create Account -- User Management page
+	 */
+	function createAccount($email, $first_name, $last_name, $phone, $role, $company, $password) {
+		$strength = '5';
+		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+		//blowfish algorithm
+		$salt = sprintf("$2a$%02d$", $strength) . $salt;
+		$hash = crypt($password, $salt);
+		//check to make sure this username or email does not already exist
+		$result = $this->link->query("SELECT * FROM `" . $this->prefix . "users` WHERE email = '$email'");
+		$count = $this->numRows($result);
+		if($count > 0) {
+			print "<strong>Error</strong> E-Mail already exists";
+		} else {
+			$this->link->query("INSERT INTO `" . $this->prefix . "users` 
+								SET username = '$email', email = '$email', phone = '$phone', first_name = '$first_name',
+									last_name = '$last_name', role = '$role', company = '$company', 
+									salt = '$salt', hash = '$hash'
+							   ");
+			print "<strong>Success!</strong> Account has been created. User may now login.";
 		}
 	}
 	
@@ -104,6 +132,36 @@ class fpm extends DB_Class {
 		  return $user; 
 	}
 	
+	function getUserById($user_id) {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE id = '$user_id'");
+		 $user = array(
+						'id'		=> $data['0']['id'],
+						'username'  => $data['0']['username'],
+						'email'		=> $data['0']['email'],
+						'first_name'=> $data['0']['first_name'],
+						'last_name' => $data['0']['last_name'],
+						'phone'		=> $data['0']['phone'],
+						'company'	=> $data['0']['company'],
+						'role'		=> $data['0']['role'],
+						'created'	=> $data['0']['created'],
+					 );
+		  return $user;
+	}
+	
+	function deleteUser($user_id) {
+		$user_data = fpm::getUserById($user_id);
+		 $username = $user_data['username'];
+		  //reset all tasks where the assignee is the user being deleted
+		  $this->link->query("UPDATE `" . $this->prefix . "tasks` SET assignee = '' WHERE assignee = '$username'");
+		  
+		 $this->link->query("DELETE FROM `" . $this->prefix . "users` WHERE id = '$user_id'");
+		 print "<strong>Success!</strong> User has been deleted, and all assigned tasks released";
+	}
+	
+/*
+ * END USERS
+ */	
+	
 	
 /*
  * CLIENTS / COMPANIES
@@ -150,6 +208,12 @@ class fpm extends DB_Class {
 		  return $id;
 	}
 	
+	function getCompanyName($company_id) {
+		$data = $this->fetch("SELECT company FROM `" . $this->prefix . "companies` WHERE id = '$company_id'");
+		 $company = $data['0']['company'];
+		  return $company;
+	}
+	
 	
 /*
  * END CLIENTS / COMPANIES
@@ -171,12 +235,13 @@ class fpm extends DB_Class {
 	}
 	
 	function getProject($id) {
-		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id,
+		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id AS cid,
 									`" . $this->prefix . "companies`.company AS ccompany
 							  FROM `" . $this->prefix . "projects`, `" . $this->prefix . "companies`
 							  WHERE	`" . $this->prefix . "projects`.id = '$id'
 							  AND `" . $this->prefix . "projects`.company = `" . $this->prefix . "companies`.id
 							");
+
 			$project = array(
 								'id'		  => $data['0']['id'],
 								'project'	  => $data['0']['project'],
@@ -190,20 +255,21 @@ class fpm extends DB_Class {
 		return $project;
 	}
 	
-	function getActiveProjects() {
-		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id,
-									 `" . $this->prefix . "companies`.company
+	function getActiveProjects($company_id) {
+		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id AS cid,
+									 `" . $this->prefix . "companies`.company AS ccompany
 							  FROM `" . $this->prefix . "projects`, `" . $this->prefix . "companies`
 							  WHERE `" . $this->prefix . "projects`.status = '1'
-							  AND	`" . $this->prefix . "projects`.company = `" . $this->prefix . "companies`.id
-							  ORDER BY `" . $this->prefix . "projects`.company
+							  AND	`" . $this->prefix . "projects`.company = '$company_id'
+							  AND   `" . $this->prefix . "companies`.id = '$company_id'
+							  ORDER BY `" . $this->prefix . "projects`.created DESC
 							");
 		return $data;
 	}
 	
 	function getPastProjects() {
-		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id,
-									 `" . $this->prefix . "companies`.company
+		$data = $this->fetch("SELECT `" . $this->prefix . "projects`.*, `" . $this->prefix . "companies`.id AS cid,
+									 `" . $this->prefix . "companies`.company AS ccompany
 							  FROM `" . $this->prefix . "projects`, `" . $this->prefix . "companies`
 							  WHERE `" . $this->prefix . "projects`.status = '0'
 							  AND	`" . $this->prefix . "projects`.company = `" . $this->prefix . "companies`.id
@@ -223,6 +289,20 @@ class fpm extends DB_Class {
 		  print "<strong>Success!</strong> Project description updated";
 	}
 	
+	function getProjectName($project_id) {
+		$data = $this->fetch("SELECT project FROM `" . $this->prefix . "projects` WHERE id = '$project_id'");
+		 $project = $data['0']['project'];
+		  return $project;
+	}
+	
+	function addProject($project, $description, $type, $company) {
+		$description = $this->link->real_escape_string($description);
+		 $this->link->query("INSERT INTO `" . $this->prefix . "projects` 
+		 					 SET project = '$project', description = '$description', type = '$type', company = '$company'
+		 					");
+		 	print "<strong>Success!</strong> Project has been created";
+	}
+	
 /*
  * END PROJECTS
  */	
@@ -231,11 +311,12 @@ class fpm extends DB_Class {
  * TASKS
  */	
 		
-	function getAllActiveTasks() {
+	function getAllActiveTasksByCompany($company_id) {
 		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
 									 `" . $this->prefix . "projects`.project AS pname
 							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
-							  WHERE `" . $this->prefix . "tasks`.status = '0'
+							  WHERE `" . $this->prefix . "tasks`.status = '1'
+							  AND `" . $this->prefix . "projects`.company = '$company_id'
 							  AND `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
 							  ORDER BY company DESC
 							");
@@ -243,11 +324,12 @@ class fpm extends DB_Class {
 		 return $data;
 	}
 	
-	function getAllCompletedTasks() {
+	function getAllCompletedTasksByCompany($company_id) {
 		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
 									 `" . $this->prefix . "projects`.project AS pname
 							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
-							  WHERE `" . $this->prefix . "tasks`.status = '1'
+							  WHERE `" . $this->prefix . "tasks`.status = '0'
+							  AND `" . $this->prefix . "projects`.company = '$company_id'
 							  AND `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
 							  ORDER BY company DESC
 							");
@@ -268,7 +350,7 @@ class fpm extends DB_Class {
 		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
 									 `" . $this->prefix . "projects`.project AS pname
 							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
-							  WHERE `" . $this->prefix . "tasks`.status = '0' 
+							  WHERE `" . $this->prefix . "tasks`.status = '1' 
 							  AND assignee = '$username'
 							  AND `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
 							  ORDER BY company DESC
@@ -281,7 +363,7 @@ class fpm extends DB_Class {
 		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
 									 `" . $this->prefix . "projects`.project AS pname
 							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
-							  WHERE `" . $this->prefix . "tasks`.status = '1' 
+							  WHERE `" . $this->prefix . "tasks`.status = '0' 
 							  AND assignee = '$username'
 							  AND `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
 							  ORDER BY company DESC
@@ -418,6 +500,11 @@ class fpm extends DB_Class {
 		    print "<strong>Success!</strong> Task notes have been updated";
 	}
 	
+	function getRecentActivity() {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "tasks` ORDER BY lastUpdate DESC LIMIT 5");
+		 return $data;
+	}
+	
 /*
  * END TASKS
  */	
@@ -427,12 +514,12 @@ class fpm extends DB_Class {
  */	
 	
 	function getFreelancers() {
-		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'admin' OR role = 'freelancer'");
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'admin' OR role = 'user'");
 		 return $data;
 	}
 	
 	function getClients() {
-		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'user'");
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "users` WHERE role = 'client'");
 		 return $data;
 	}
 	

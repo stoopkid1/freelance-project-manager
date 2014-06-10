@@ -5,23 +5,9 @@
                 <ul class="nav">
                     <!-- Main menu -->
                     <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                    <li><a href="view-clients.php"><i class="glyphicon glyphicon-record"></i> Clients</a></li>
                     <li class="current"><a href="view-projects.php"><i class="glyphicon glyphicon-fire"></i> Projects</a></li>
-                    <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-tasks"></i> Tasks
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li><a href="view-tasks-user.php">My Tasks</a></li>
-                            <li><a href="view-tasks.php">All</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="view-reminders.php"><i class="glyphicon glyphicon-pushpin"></i> Reminders</a></li>
+                    <li><a href="view-tasks.php"><i class="glyphicon glyphicon-tasks"></i> Tasks</a></li>
                     <li><a href="view-history.php"><i class="glyphicon glyphicon-calendar"></i> History</a></li>
-                    <li><a href="view-users.php"><i class="glyphicon glyphicon-user"></i> Users</a></li>
-                    <li><a href="settings.php"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
                 </ul>
              </div>
 		  </div>
@@ -40,6 +26,9 @@
 			 </div>
 			</div>
 		  	<div class="row">
+		  	 <?php if($details['cid'] != $fpm_company_id) { ?>
+		  		<h3>Sorry, Project is not under <em><?php print $fpm_company; ?></em></h3>
+		  	<?php } else { ?>
 		  		<div class="col-md-6">
 		  			<div class="row">
 		  				<div class="col-md-12">
@@ -127,7 +116,7 @@
 						                   <td><?php print $task['task']; ?></td>
 						                   <td><?php print $task['assignee']; ?></td>
 						                   <td><?php print ($task['status'] == 100 ? '<span class="text-success">Completed</span>' : '<span class="text-primary">' . $task['percent'] . '%</span>'); ?></td>
-						                   <td><a href="view-task.php?id=<?php print $project['id']; ?>" class="btn btn-info btn-xs">Details</a>
+						                   <td><a href="view-task.php?id=<?php print $task['id']; ?>" class="btn btn-info btn-xs">Details</a>
 						                  </tr>
 						                 <?php } ?>
 						              </tbody>
@@ -135,11 +124,13 @@
   								</div>
 							</div>
 		  				</div>
+		  				<?php } ?>
 		  			<?php } else { ?>
 		  				<h3>Sorry, no Client was selected</h3>
 		  			<?php } ?>
 		  			</div>
 		  		</div>
+		  		
 		  	</div>
 		  	
 		  </div>	
