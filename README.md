@@ -1,7 +1,9 @@
 freelance-project-manager
 =========================
 
-web based project task manager for freelance developers to help organize their projects, and give clients access to report &amp; request features
+web based project task manager for freelance developers to help organize their projects, and give clients access to report &amp; request features.
+
+Author: Michael Loring - mdloring[at]gmail.com - http://www.mdloring.com
 
 1) run the .sql backup file to create your database
 2) login!
