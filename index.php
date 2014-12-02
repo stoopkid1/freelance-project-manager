@@ -1,6 +1,6 @@
 <?php session_start();
 	if(isset($_SESSION['fpm_username'])) {
-		header("Location: index.php");
+		header("Location: developer/index.php");
 	} 
 ?>
 <!DOCTYPE html>

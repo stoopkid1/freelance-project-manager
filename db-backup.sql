@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v11.41 (64 bit)
-MySQL - 5.5.40-cll : Database - stoopkid_assign
+MySQL - 5.6.20 : Database - freelanceprojectmanager
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.5.40-cll : Database - stoopkid_assign
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`stoopkid_assign` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`freelanceprojectmanager` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 /*Table structure for table `companies` */
 
@@ -30,6 +30,8 @@ CREATE TABLE `companies` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
+/*Data for the table `companies` */
+
 /*Table structure for table `pages` */
 
 DROP TABLE IF EXISTS `pages`;
@@ -43,6 +45,8 @@ CREATE TABLE `pages` (
   `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `pages` */
 
 /*Table structure for table `projects` */
 
@@ -59,6 +63,8 @@ CREATE TABLE `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
+/*Data for the table `projects` */
+
 /*Table structure for table `reminders` */
 
 DROP TABLE IF EXISTS `reminders`;
@@ -70,6 +76,8 @@ CREATE TABLE `reminders` (
   `status` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `reminders` */
 
 /*Table structure for table `tasks` */
 
@@ -93,6 +101,8 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
+/*Data for the table `tasks` */
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -113,7 +123,11 @@ CREATE TABLE `users` (
   `status` int(1) DEFAULT '0',
   `forget` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=144 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
+
+/*Data for the table `users` */
+
+insert  into `users`(`id`,`username`,`email`,`phone`,`first_name`,`last_name`,`company`,`role`,`created`,`modified`,`salt`,`hash`,`status`,`forget`) values (145,'admin','admin','','Admin','Account','','admin','2014-12-02 04:37:42',NULL,'$2a$05$fPSY6Gs1gOvRPZ8VaTOTzw==','$2a$05$fPSY6Gs1gOvRPZ8VaTOTzuhL/QoWNyXgjs7NqgumtAEnT0NEAiKBO',0,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
