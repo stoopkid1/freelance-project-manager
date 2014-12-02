@@ -13,9 +13,9 @@ class DB_Class {
 		var $link;
 		
 		var $host     = "localhost"; //database host
-		var $username = "stoopkid_intrane"; //database username
-		var $password = "!Water1jcl"; //database password
-		var $database = "stoopkid_assign"; //mysql database
+		var $username = ""; //database username
+		var $password = ""; //database password
+		var $database = ""; //mysql database
 		var $prefix   = ""; //table prefix
 		
 		public function __construct() {
