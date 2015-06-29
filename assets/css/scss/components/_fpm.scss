@@ -1,0 +1,60 @@
+/*
+ * Freelance Project Manager
+ * Custom Styling
+ */
+body {
+	font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+sup {
+	font-size:12px;
+}
+.login_success, .register_success, .success {
+	display:none;
+	background:#2C3742;
+	border-radius:5px;
+	font-size:12px;
+}
+.login_success_text, .register_success_text, .success_text {
+	color:#F0F1F3;
+	padding:10px;
+}
+.built-by {
+	font-size:14px;
+	color:#CCCCCC;
+}
+.welcome, .project_name {
+	color:#3276B1;
+}
+.show_date {
+	text-align:center;
+	color:#DBDBDB;
+	margin-top:15px;
+	font-weight:700;
+}
+.push-down {
+	margin-top:10px;
+}
+span.assignee {
+	color:#CCCCCC;
+}
+p.assignee {
+	font-size:14px;
+}
+.thin {
+	font-weight:100;
+}
+.progress-bar {
+	font-size:20px;
+	color:#FFF;
+}
+.recent_date {
+	color:#428BCA;
+	font-size:12px;
+	font-style:italic;
+}
