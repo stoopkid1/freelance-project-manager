@@ -1,0 +1,21 @@
+{
+  "name": "freelance-project-manager",
+  "version": "0.1.0",
+  "main": "Gruntfile.js",
+  "author": "Michael D. Loring",
+  "license": "Proprietary",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stoopkid1/freelance-project-manager"
+  },
+  "bugs": {
+    "url": "git://github.com/stoopkid1/freelance-project-manager/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-sass": "~0.6.1",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

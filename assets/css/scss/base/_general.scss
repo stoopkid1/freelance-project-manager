@@ -1,0 +1,21 @@
+body {
+	padding:0px;
+	margin:0px;
+	background: $darker_blue;
+	font-family: $open_sans;
+}
+hr {
+	border-color: $light_blue;
+}
+.site-wrapper {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.content-wrapper {
+	width: 100%;
+	padding: 0px;
+	background: url('../img/content-background.jpg');
+	position: relative;
+}

@@ -4,9 +4,9 @@
     <title>Freelance Project Manager - Organize Tasks, Complete Projects</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,6 +39,16 @@
 			                <input class="form-control" type="text" placeholder="E-mail address">
 			                <input class="form-control" type="password" placeholder="Password">
 			                <input class="form-control" type="password" placeholder="Confirm Password">
+			                <div class="form-inline">
+				                <label class="control-label">
+				                    Account Type</label>
+				                <label class="radio">
+				                    <input value="developer" name="account-type" type="radio">Developer
+				                </label>
+				                <label class="radio">
+				                    <input value="client" name="account-type" type="radio">Client
+				                </label>
+				            </div>
 			                <div class="action">
 			                    <a class="btn btn-primary signup" href="index.html">Sign Up</a>
 			                </div>                
