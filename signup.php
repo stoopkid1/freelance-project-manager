@@ -39,6 +39,16 @@
 			                <input class="form-control" type="text" placeholder="E-mail address">
 			                <input class="form-control" type="password" placeholder="Password">
 			                <input class="form-control" type="password" placeholder="Confirm Password">
+			                <div class="form-inline">
+				                <label class="control-label">
+				                    Account Type</label>
+				                <label class="radio">
+				                    <input value="developer" name="account-type" type="radio">Developer
+				                </label>
+				                <label class="radio">
+				                    <input value="client" name="account-type" type="radio">Client
+				                </label>
+				            </div>
 			                <div class="action">
 			                    <a class="btn btn-primary signup" href="index.html">Sign Up</a>
 			                </div>                
