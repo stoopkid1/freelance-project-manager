@@ -15,7 +15,7 @@ module.exports = function( grunt ) {
 					banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
 				},
 				files: {
-					'assets/js/compiled.article-b.min.js' : ['assets/js/ezleague.js']
+					'assets/js/compiled.fpm.min.js' : ['assets/js/fpm.js']
 				}
 			}
 
@@ -39,7 +39,7 @@ module.exports = function( grunt ) {
 					banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
 				},
 				files: {
-						'assets/css/compiled.theme.min.css': ['assets/css/theme.css']
+						'assets/css/compiled.fpm.css': ['assets/css/theme.css']
 				}
 			}
 		},
