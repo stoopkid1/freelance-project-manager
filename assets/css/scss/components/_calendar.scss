@@ -2,34 +2,34 @@
     float: left;
     width: 150px;
     padding: 0 10px;
-    border: 1px solid #ccc;
-    background: #eee;
+    border: 1px solid $grey;
+    background: $grey_lightest;
     text-align: left;
+
+    h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }   
+
+    p {
+        margin: 1.5em 0;
+        font-size: 11px;
+        color: $grey_dark;
     }
     
-#external-events h4 {
-    font-size: 16px;
-    margin-top: 0;
-    padding-top: 1em;
+    p input {
+        margin: 0;
+        vertical-align: middle;
     }
-    
+}
+
 .external-event { /* try to mimick the look of a real event */
     margin: 10px 0;
     padding: 2px 4px;
-    background: #3366CC;
-    color: #fff;
+    background: $blue_bg;
+    color: $white;
     font-size: .85em;
     cursor: pointer;
     z-index: 99999999;
-    }
-    
-#external-events p {
-    margin: 1.5em 0;
-    font-size: 11px;
-    color: #666;
-    }
-    
-#external-events p input {
-    margin: 0;
-    vertical-align: middle;
-    }
+}

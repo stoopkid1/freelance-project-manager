@@ -1,0 +1,206 @@
+/*
+ * Freelance Project Manager
+ * Form Styling
+ */
+#fpm-signup {
+	h4, h6 {
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+	h4 {
+		font-size: 2rem;
+	}
+	h6 {
+		font-size: 1.6rem;
+		margin-bottom: 35px;
+	}
+	.form-account-type {
+		text-align: left;
+		font-size: 15px;
+
+		.control-label {
+			margin-right: 10px;
+			font-weight: 700;
+		}
+		.radio {
+			vertical-align: inherit;
+			margin-left: 10px;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
+		label {
+			font-weight: normal;
+		}
+		input[type="radio"] {
+			margin-right: 10px;
+		}
+	}
+}
+
+/** Login & Signup **/
+
+.login-wrapper {
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+
+	.box {
+		margin: 0 auto;
+		padding: 30px 0 30px;
+		float: none;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
+		-ms-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
+		-o-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
+		box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.35) 0 0 1px;
+		background: $white;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		-ms-border-radius: 6px;
+		-o-border-radius: 6px;
+		border-radius: 6px;
+
+		.content-wrap {
+			width: 82%;
+			margin: 0 auto;
+		}
+		h6 {
+			text-transform: uppercase;
+			margin-bottom: 35px;
+			font-size: 18px;
+			font-weight: 600;
+		}
+		input[type="text"],
+		input[type="password"] {
+			font-size: 15px;
+			height: 40px;
+			margin-bottom: 10px;
+			border-color: $grey_blue_light;
+			padding-left: 12px;
+		}
+		input[type="text"]:focus,
+		input[type="password"]:focus {
+			border: 1px solid $blue_sky;
+			outline: none;
+			-webkit-box-shadow: inset 0 1px 2px $grey_light,0px 0 5px $blue_sky;
+			-moz-box-shadow: inset 0 1px 2px $grey_light,0px 0 5px $blue_sky;
+			-ms-box-shadow: inset 0 1px 2px $grey_light,0px 0 5px $blue_sky;
+			-o-box-shadow: inset 0 1px 2px $grey_light,0px 0 5px $blue_sky;
+			box-shadow: inset 0 1px 2px $grey_light, 0px 0 5px $blue_sky;
+		}
+		input[type="password"] {
+			margin-bottom: 10px;
+		}
+		.action {
+			position: relative;
+			top: 30px;
+			padding: 15px 0px;
+		}
+		.signup {
+			text-transform: uppercase;
+			font-size: 13px;
+			padding: 7px 25px;
+			border-radius: 5px;
+		}
+		.social {
+			margin: 0 auto;
+			width: 90%;
+
+			a.face_login{
+				background: $facebook_login;
+				background: -moz-linear-gradient(top, $facebook_login 0%, $facebook_login_bg 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$facebook_login), color-stop(100%,$facebook_login_bg));
+				background: -webkit-linear-gradient(top, $facebook_login 0%,$facebook_login_bg 100%);
+				background: -o-linear-gradient(top, $facebook_login 0%,$facebook_login_bg 100%);
+				background: -ms-linear-gradient(top, $facebook_login 0%,$facebook_login_bg 100%); 
+				background: linear-gradient(to bottom, $facebook_login 0%,$facebook_login_bg 100%); 
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$facebook_login', endColorstr='$facebook_login_bg',GradientType=0 );
+				border: 1px solid $facebook_login_border;
+				border-radius: 3px 3px 3px 3px;
+				display: inline-block;
+				height: 37px;
+				overflow: hidden;
+				width: 99%;
+				text-decoration: none !important;
+			}
+			a.face_login:hover {
+				background: $facebook_login;
+				background: -moz-linear-gradient(top, $facebook_login 0%, $facebook_login_bg_hover 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$facebook_login), color-stop(100%,$facebook_login_bg_hover));
+				background: -webkit-linear-gradient(top, $facebook_login 0%,$facebook_login_bg_hover 100%);
+				background: -o-linear-gradient(top, $facebook_login 0%,$facebook_login_bg_hover 100%);
+				background: -ms-linear-gradient(top, $facebook_login 0%,$facebook_login_bg_hover 100%); 
+				background: linear-gradient(to bottom, $facebook_login 0%,$facebook_login_bg_hover 100%); 
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$facebook_login', endColorstr='$facebook_login_bg_hover',GradientType=0 );
+			}
+			a.face_login span.face_icon{
+				background-color: $facebook_login_span;
+				border-radius: 3px 0 0 3px;
+				float: left;
+				height: 37px;
+				text-align: center;
+				width: 51px;
+			}
+			a.face_login span.face_icon img{
+				margin-top: 5px;
+			}
+			a.face_login span.text{
+				color: $white;
+				float: left;
+				font-size: 15px;
+				font-weight: bold;
+				margin: 6px 0 0 25px;
+				text-shadow: 1px 1px 0 $facebook_login_span;
+			}
+		}
+		.division {
+			display: inline-block;
+			margin: 17px 0 23px;
+			position: relative;
+			text-align: center;
+			width: 100%;
+
+			hr {
+				border-color: $grey_blue;
+				border-width: 1px;
+				margin: 0;
+				position: absolute;
+				width: 40%;
+			}
+			hr.left{
+				top: 13px;
+			}
+			hr.right{
+				bottom: 6px;
+				right: 0;
+			}
+			span {
+				color: $grey_dark;
+				font-size: 18px;
+			}
+		}
+	}
+	.already {
+		margin: 0 auto;
+		float: none;
+		text-align: center;
+		font-size: 13px;
+		margin-top: 30px;
+
+		p {
+			display: inline-block;
+			color: $red_dark;
+		}
+		a {
+			color: $red_dark;
+			margin-left: 7px;
+			border-bottom: 1px solid;
+		}
+		a:hover {
+			text-decoration: none;
+			color: $black;
+			border-bottom-color: $black;
+		}
+	}
+}

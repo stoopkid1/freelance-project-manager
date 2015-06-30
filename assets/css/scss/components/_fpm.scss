@@ -16,24 +16,24 @@ sup {
 }
 .login_success, .register_success, .success {
 	display:none;
-	background:#2C3742;
+	background:$primary;
 	border-radius:5px;
 	font-size:12px;
 }
 .login_success_text, .register_success_text, .success_text {
-	color:#F0F1F3;
+	color:$login_grey;
 	padding:10px;
 }
 .built-by {
 	font-size:14px;
-	color:#CCCCCC;
+	color:$grey;
 }
 .welcome, .project_name {
-	color:#3276B1;
+	color:$project_name;
 }
 .show_date {
 	text-align:center;
-	color:#DBDBDB;
+	color:$grey_red;
 	margin-top:15px;
 	font-weight:700;
 }
@@ -41,7 +41,7 @@ sup {
 	margin-top:10px;
 }
 span.assignee {
-	color:#CCCCCC;
+	color:$grey;
 }
 p.assignee {
 	font-size:14px;
@@ -51,10 +51,10 @@ p.assignee {
 }
 .progress-bar {
 	font-size:20px;
-	color:#FFF;
+	color:$white;
 }
 .recent_date {
-	color:#428BCA;
+	color:$recent_date;
 	font-size:12px;
 	font-style:italic;
 }
