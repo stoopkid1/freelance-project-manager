@@ -1,4 +1,5 @@
 <?php session_start();
+global $fpm_username, $fpm_user_id;
 	include('lib/class.db.php');
 	include('lib/class.fpm.php');
 	
@@ -9,7 +10,8 @@
 	}
 	
 	if(isset($_SESSION['fpm_username'])) {
-		$fpm_username = $_SESSION['fpm_username'];
+		$fpm_username 	= $_SESSION['fpm_username'];
+		$fpm_user_id 	= $_SESSION['user_id'];
 		 $fpm_username_details = $fpm->getUser($fpm_username);
 	} else {
 		header("Location: ../index.php");
