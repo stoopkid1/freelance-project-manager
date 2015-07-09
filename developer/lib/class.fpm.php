@@ -519,8 +519,10 @@ class fpm extends DB_Class {
 		    print "<strong>Success!</strong> Task notes have been updated";
 	}
 	
-	function getRecentActivity() {
-		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "tasks` ORDER BY lastUpdate DESC LIMIT 5");
+	function getRecentActivity($fpm_user_id) {
+		$data = $this->fetch("SELECT * FROM `" . $this->prefix . "tasks`
+								WHERE user_id = '$fpm_user_id'
+								ORDER BY lastUpdate DESC LIMIT 5");
 		 return $data;
 	}
 	
