@@ -451,7 +451,7 @@ class fpm extends DB_Class {
 		 				'created'	  => date('F d, Y h:ia', strtotime($data['0']['created'])),
 		 				'notes'		  => $data['0']['notes'],
 		 				'percent'	  => $data['0']['percent'],
-		 				'lastUpdate'  => $data['0']['lastUpdated'],
+		 				'lastUpdate'  => $data['0']['lastUpdate'],
 		 				'completed'   => $data['0']['completeDate']
 		 			  );
 		 	return $task;
