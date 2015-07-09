@@ -6,7 +6,7 @@
     <!-- Bootstrap -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->
-    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/compiled.fpm.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,29 +35,25 @@
 				<div class="login-wrapper">
 			        <div class="box">
 			            <div class="content-wrap">
-			                <h6>Sign Up</h6>
-			                <input class="form-control" type="text" placeholder="E-mail address">
-			                <input class="form-control" type="password" placeholder="Password">
-			                <input class="form-control" type="password" placeholder="Confirm Password">
-			                <div class="form-inline">
-				                <label class="control-label">
-				                    Account Type</label>
-				                <label class="radio">
-				                    <input value="developer" name="account-type" type="radio">Developer
-				                </label>
-				                <label class="radio">
-				                    <input value="client" name="account-type" type="radio">Client
-				                </label>
-				            </div>
-			                <div class="action">
-			                    <a class="btn btn-primary signup" href="index.html">Sign Up</a>
-			                </div>                
+			            	<form id="fpm-signup" name="fpm-signup" method="POST">
+				                <h4>Developer Sign Up</h4>
+				                <h6 class="text-default">Registration is FREE</h6>
+				                <input class="form-control" id="signup-email" type="text" placeholder="E-mail address">
+				                <input class="form-control" id="signup-password" type="password" placeholder="Password">
+				                <input class="form-control" id="signup-confirm" type="password" placeholder="Confirm Password">
+					            <div class="success">
+				               		<span class="success_text"></span>
+				             	</div>
+				                <div class="action">
+				                    <a class="btn btn-primary signup" id="signup-btn" href="index.php">Sign Up</a>
+				                </div>
+			                </form>                
 			            </div>
 			        </div>
 
 			        <div class="already">
 			            <p>Have an account already?</p>
-			            <a href="login.php">Login</a>
+			            <a href="index.php">Login</a>
 			        </div>
 			    </div>
 			</div>
@@ -69,7 +65,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/signup.js"></script>
   </body>
 </html>
