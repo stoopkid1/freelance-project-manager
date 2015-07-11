@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+global $fpm_username, $fpm_user_id;
+?>
 <!-- Sidebar -->
 		  <div class="col-md-2">
 		  	<div class="sidebar content-box" style="display: block;">
@@ -32,6 +34,11 @@
 				if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 					$project = $_GET['id'];
 					 $details = $fpm->getProject($project);
+					 $user_id 	= $details['user_id'];
+					 if( $user_id != $fpm_user_id ) {
+					 	echo 'Sorry, this is not your <em>project</em>, so you can\'t view it';
+					 	return;
+					 }
 					 $client_id = $fpm->getClientID($details['company']);
 			 ?>
 			 <div class="col-md-12">

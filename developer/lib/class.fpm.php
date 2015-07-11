@@ -272,7 +272,8 @@ class fpm extends DB_Class {
 								'description' => $data['0']['description'],
 								'cid'		  => $data['0']['company'],
 								'company'	  => $data['0']['ccompany'],
-								'status'	  => $data['0']['status']
+								'status'	  => $data['0']['status'],
+								'user_id'	  => $data['0']['user_id']
 							);
 		return $project;
 	}
