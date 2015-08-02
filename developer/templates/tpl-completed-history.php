@@ -1,9 +1,10 @@
+<?php global $fpm_user_id; ?>
 <div class="col-md-4">
 <div class="content-box-header">
   <div class="panel-title">Completed Projects</div>
 </div>
 	<div class="content-box-large box-with-header">
-	     <?php $all_projects = $fpm->getPastProjects(); ?>
+	     <?php $all_projects = $fpm->getPastProjects($fpm_user_id); ?>
 	      <div class="table-responsive">
 			<table class="table">
               <thead>
@@ -33,7 +34,7 @@
   <div class="panel-title">Completed Tasks</div>
 </div>
 	<div class="content-box-large box-with-header">
-	     <?php $all_tasks = $fpm->getAllCompletedTasks(); ?>
+	     <?php $all_tasks = $fpm->getAllCompletedTasks($fpm_user_id); ?>
 	      <div class="table-responsive">
 			<table class="table">
               <thead>

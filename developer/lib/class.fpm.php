@@ -346,12 +346,13 @@ class fpm extends DB_Class {
 		 return $data;
 	}
 	
-	function getAllCompletedTasks() {
+	function getAllCompletedTasks($user_id) {
 		$data = $this->fetch("SELECT `" . $this->prefix . "tasks`.*, `" . $this->prefix . "projects`.id AS pid, 
 									 `" . $this->prefix . "projects`.project AS pname
 							  FROM `" . $this->prefix . "tasks`, `" . $this->prefix . "projects`
 							  WHERE `" . $this->prefix . "tasks`.status = '0'
 							  AND `" . $this->prefix . "tasks`.project = `" . $this->prefix . "projects`.id
+							  AND `" . $this->prefix . "tasks`.user_id = '$user_id'
 							  ORDER BY company DESC
 							");
 		return $data;
